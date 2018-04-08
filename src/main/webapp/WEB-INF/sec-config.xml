@@ -7,10 +7,13 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<context:property-placeholder location="classpath:password.properties" />
-
 	<http auto-config="true">
 		<intercept-url pattern="/**" access="ROLE_USER" />
+	</http>
+	
+	<http auto-config="true" create-session="never">
+		<intercept-url pattern="/admin/api" access="ROLE_ADMIN" />
+		<http-basic/>
 	</http>
 
 	<authentication-manager>
