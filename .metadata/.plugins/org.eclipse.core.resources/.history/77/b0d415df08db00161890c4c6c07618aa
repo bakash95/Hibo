@@ -1,0 +1,30 @@
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
+
+class ManageEmloyee
+{
+	public static void main(String[] args) {
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction t=s.beginTransaction();
+		Employee e=(Employee)s.get(Employee.class,1);
+		Query q=s.createQuery("select * from Employee");
+		List<Employee> eList=q.getResultList();
+		for (Employee employee : eList) {
+			System.out.println(employee);
+		}
+		s.flush();
+		t.commit();
+	/*	Employee e1=new Employee("akash","b",100000);
+		s.save(e1);
+		s.flush();
+		t.commit();
+		s.close();*/
+		System.exit(0);
+	}
+}
